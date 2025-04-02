@@ -12,13 +12,7 @@ const CLIENT_QUEUE = "cliente_email_queue";
 export const listenForEmails = async () => {
     try {
         // Conexión con configuración actualizada
-        const connection = await amqp.connect({
-            protocol: 'amqp',
-            hostname: process.env.RABBITMQ_HOST, // Debe ser "rabbitmq" en Docker
-            port: 5672,
-            username: process.env.RABBITMQ_USER,
-            password: process.env.RABBITMQ_PASS
-        });
+        const connection = await amqp.connect(process.env.RABBITMQ_URL); // Usar RABBITMQ_URL
         const channel = await connection.createChannel();
 
         // Configurar cola para usuarios
